@@ -80,7 +80,7 @@ async function updateAirplane(id, data) {
       );
     }
     throw new AppError(
-      "Can't delete flight",
+      "Can't update flight",
       StatusCodes.INTERNAL_SERVER_ERROR
     );
   }
