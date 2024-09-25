@@ -29,7 +29,6 @@ async function getAirplane(req, res) {
   try {
     const airplane = await AirplaneService.getAirplane(req.params.id);
     SuccessResponse.data = airplane;
-    SuccessResponse.message = "Successfully deleted the airplane";
     return res.status(StatusCodes.OK).json(SuccessResponse);
   } catch (error) {
     ErrorResponse.error = error;
@@ -40,7 +39,34 @@ async function deleteAirplane(req, res) {
   try {
     const response = await AirplaneService.deleteAirplane(req.params.id);
     SuccessResponse.data = response;
+    SuccessResponse.message = "Successfully deleted the airplane";
     return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function deleteAirplane(req, res) {
+  try {
+    const response = await AirplaneService.deleteAirplane(req.params.id);
+    SuccessResponse.data = response;
+    SuccessResponse.message = "Successfully deleted the airplane";
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function updateAirplane(req, res) {
+  try {
+    const airplane = await AirplaneService.updateAirplane(req.params.id, {
+      modelNumber: req.body.modelNumber,
+      capacity: req.body.capacity,
+    });
+    SuccessResponse.data = airplane;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
   } catch (error) {
     ErrorResponse.error = error;
     return res.status(error.statusCode).json(ErrorResponse);
@@ -51,4 +77,5 @@ module.exports = {
   getAirplanes,
   getAirplane,
   deleteAirplane,
+  updateAirplane,
 };
